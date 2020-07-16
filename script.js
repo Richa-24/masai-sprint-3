@@ -8,6 +8,7 @@ var rate=document.getElementById("rate")
 var rate_value=document.getElementById("rate_value")
 var pitch=document.getElementById("pitch")
 var pitch_value=document.getElementById("pitch_value")
+var body=document.querySelector("body")
 
 
 var voices=[]
@@ -17,7 +18,18 @@ button.addEventListener("click",handleSubmit)
 
 function handleSubmit(){
     
+    if(input_box.value != 0){
+        body.style.background="url(image/wave.gif)"
+        body.style.backgroundRepeat = 'repeat-x';
+        body.style.backgroundSize = '100% 100%';
+    }
+    
+
    var toSpeak= new SpeechSynthesisUtterance(input_box.value)
+
+   toSpeak.onend=function(){
+       body.style.background=""
+   }
 
    var selectedVoice=voice_select.selectedOptions[0].getAttribute("data-name")
 
