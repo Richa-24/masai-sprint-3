@@ -4,6 +4,11 @@ var speech=window.speechSynthesis;
 var input_box=document.getElementById("input_box")
 var voice_select=document.getElementById("voice_select")
 var button=document.getElementById("button")
+var rate=document.getElementById("rate")
+var rate_value=document.getElementById("rate_value")
+var pitch=document.getElementById("pitch")
+var pitch_value=document.getElementById("pitch_value")
+
 
 var voices=[]
 getVoices()
@@ -11,6 +16,7 @@ getVoices()
 button.addEventListener("click",handleSubmit)
 
 function handleSubmit(){
+    
    var toSpeak= new SpeechSynthesisUtterance(input_box.value)
 
    var selectedVoice=voice_select.selectedOptions[0].getAttribute("data-name")
@@ -21,7 +27,12 @@ function handleSubmit(){
        }
    })
 
+    toSpeak.rate = rate.value;
+    toSpeak.pitch = pitch.value;
+
     speech.speak(toSpeak)  
+
+    
 }
 
 function getVoices(){
@@ -41,4 +52,12 @@ function getVoices(){
         speechSynthesis.onvoiceschanged= getVoices
     }
 }
+
+rate.addEventListener("change",function(){
+    rate_value.textContent=rate.value
+})
+
+pitch.addEventListener("change",function(){
+    pitch_value.textContent=pitch.value
+})
 
